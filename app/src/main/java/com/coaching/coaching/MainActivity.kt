@@ -1,5 +1,6 @@
 package com.coaching.coaching
 
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -29,6 +30,19 @@ class MainActivity : AppCompatActivity() {
             loadWithOverviewMode = true
             allowFileAccess = true
             allowContentAccess = true
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 100) {
+            if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                binding.webview.onRequestPermissionResult()
+            }
         }
     }
 }

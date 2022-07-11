@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <WebView
+        <com.coaching.coaching.CustomWebView
             android:layout_width="0dp"
             android:id="@+id/webview"
             app:layout_constraintStart_toStartOf="parent"
