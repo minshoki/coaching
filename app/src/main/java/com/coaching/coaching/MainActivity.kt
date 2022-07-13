@@ -4,7 +4,13 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import com.coaching.coaching.databinding.ActivityMainBinding
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        awaitPushToken()
         initWebView()
         binding.webview.loadUrl("http://sqrt5.iptime.org:8081")
     }
@@ -30,6 +37,15 @@ class MainActivity : AppCompatActivity() {
             loadWithOverviewMode = true
             allowFileAccess = true
             allowContentAccess = true
+        }
+    }
+
+    private fun awaitPushToken() {
+        lifecycleScope.launch(CoroutineExceptionHandler { _, throwable ->
+            throwable.printStackTrace()
+        }) {
+            val token  = Firebase.messaging.token.await()
+            AppPreferences.setPushToken(this@MainActivity, token)
         }
     }
 

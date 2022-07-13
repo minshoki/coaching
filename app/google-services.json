@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1077737261529",
+    "project_id": "bnikorea-app",
+    "storage_bucket": "bnikorea-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077737261529:android:72dad1691de62ec58171c8",
+        "android_client_info": {
+          "package_name": "com.coaching.coaching"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1077737261529-ka2a78ojdtp693g98grss27egffv43e1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8q7cRNe2X7_VxvgVrOqfIIfimWtrmlto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1077737261529-ka2a78ojdtp693g98grss27egffv43e1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
