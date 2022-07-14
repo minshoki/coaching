@@ -23,8 +23,11 @@ class FcmService: FirebaseMessagingService() {
         val body = message.data["body"] ?: ""
         val url = message.data["url"]
 
-        val mainIntent = Intent(this, MainActivity::class.java).apply {
-
+        val mainIntent = Intent(this, PushActivity::class.java).apply {
+            if(url.isNullOrBlank()) putExtra("url", url)
+            else {
+                putExtra("url", MainActivity.PUSH_BASE_URL + url)
+            }
         }
 
         val pendingIntent: PendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

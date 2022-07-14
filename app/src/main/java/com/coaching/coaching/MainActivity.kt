@@ -1,8 +1,11 @@
 package com.coaching.coaching
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.WebChromeClient
+import android.webkit.WebViewClient
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.coaching.coaching.databinding.ActivityMainBinding
@@ -16,13 +19,41 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    companion object {
+        var instance: MainActivity? = null
+        const val PUSH_BASE_URL = "http://sqrt5.iptime.org:8081"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        instance = this
         awaitPushToken()
         initWebView()
-        binding.webview.loadUrl("http://sqrt5.iptime.org:8081")
+        val url = intent.getStringExtra("url")
+        if (url.isNullOrBlank()) {
+            binding.webview.loadUrl(PUSH_BASE_URL)
+        } else {
+            if(!url.isNullOrBlank()) {
+                binding.webview.loadUrl(url)
+            } else {
+                binding.webview.loadUrl(PUSH_BASE_URL)
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.extras?.getString("url")?.let { url ->
+            if(url.isNotBlank()) {
+                binding.webview.loadUrl(url)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        instance = null
+        super.onDestroy()
     }
 
     private fun initWebView() {
@@ -38,6 +69,8 @@ class MainActivity : AppCompatActivity() {
             allowFileAccess = true
             allowContentAccess = true
         }
+        binding.webview.webChromeClient = WebChromeClient()
+        binding.webview.webViewClient = WebViewClient()
     }
 
     private fun awaitPushToken() {
