@@ -69,7 +69,6 @@ class MainActivity : AppCompatActivity() {
             allowFileAccess = true
             allowContentAccess = true
         }
-        binding.webview.webChromeClient = WebChromeClient()
         binding.webview.webViewClient = WebViewClient()
     }
 
