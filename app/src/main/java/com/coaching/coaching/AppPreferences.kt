@@ -8,7 +8,7 @@ object AppPreferences {
 
     private const val KEY_PUSH_TOKEN = "push_token"
 
-    private fun makePreferences(context: Context) = context.getSharedPreferences("styiles_prf", Context.MODE_PRIVATE)
+    private fun makePreferences(context: Context) = context.getSharedPreferences("coaching_prf", Context.MODE_PRIVATE)
 
 
     fun getPushToken(context: Context): String? {
